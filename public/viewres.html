@@ -31,16 +31,27 @@
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
 <script type="text/javascript">
-	var currentUrl = window.location.origin;
-
+var currentUrl = window.location.origin;
+function runTableQuery() {
 	$.ajax({url: currentUrl + '/api/viewres', method: 'GET'})
-		.done(function(tableData) {
-			console.log('URL: ' + currentUrl + '/api/viewres');
-			console.log(tableData);
-			for(i = 0; i < tableData.length; i++) {
-				tableNumber = i + 1;
-				$('.reservations').append(tableNumber + ' | ' + tableData[i].username);
-			};
-		});
+	.done(function(tableData) {
+		for(i = 0; i < tableData.length; i++) {
+			tableNumber = i + 1;
+			$('.reservations').append('<div>' + tableNumber + ' | ' + tableData[i].username + '</div>');
+		};
+	});
+};
+runTableQuery();
+
+function runWaitQuery() {
+	$.ajax({url: currentUrl + '/api/waitlist', method: 'GET'})
+	.done(function(waitlistData) {
+		for(i = 0; i < waitlistData.length; i++) {
+			tableNumber = i + 1;
+			$('.waitlist').append('<div>' + tableNumber + ' | ' + waitlistData[i].username + '</div>');
+		};
+	});
+};
+runWaitQuery();
 </script>
 </html>
