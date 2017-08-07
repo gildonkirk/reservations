@@ -13,14 +13,12 @@
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">Reservations</div>
-			<div class="panel-body">
-				Panel content
+			<div class="panel-body reservations">
 			</div>
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">Waiting List</div>
-			<div class="panel-body">
-				Panel content
+			<div class="panel-body waitlist">
 			</div>
 		</div>
 		<footer>
@@ -28,4 +26,21 @@
 		</footer>
 	</div>
 </body>
+<script
+  src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+	var currentUrl = window.location.origin;
+
+	$.ajax({url: currentUrl + '/api/viewres', method: 'GET'})
+		.done(function(tableData) {
+			console.log('URL: ' + currentUrl + '/api/viewres');
+			console.log(tableData);
+			for(i = 0; i < tableData.length; i++) {
+				tableNumber = i + 1;
+				$('.reservations').append(tableNumber + ' | ' + tableData[i].username);
+			};
+		});
+</script>
 </html>
